@@ -1,13 +1,11 @@
-<nav class="navbar navbar-inverse" role="navigation">
+<nav class="navbar navbar-default" role="navigation">
   <%= link_to 'Product', products_path, class: "navbar-brand" %>
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
   <ul class="nav navbar-nav">
-      <li><%= link_to 'Index', products_path %></li>
-      <li><a href="#">Link</a></li>
+    <%= nav_li 'Products', products_path %>
+    <%= nav_li 'Categories', categories_path %>
+    <%= nav_li 'About', pages_about_path %>
+    <%= nav_li 'Contact', pages_contact_path %>
   </ul>
-  <%= form_tag products_path, method: 'get', class: 'navbar-form navbar-left', role: 'search' do %>
-    <div class="form-group">
-      <%= text_field_tag :q, nil, class: 'form-control', placeholder: 'I want to find...' %>
-    </div>
-    <%= button_tag 'Submit', class: 'btn btn-default' %>
-  <% end %>
+  </div>
 </nav>

@@ -1,0 +1,12 @@
+<%= form_tag products_path, method: 'get', class: 'navbar-form navbar-left', role: 'search' do %>
+  搜尋價錢範圍：
+  <div class="form-group">
+    <%= number_field_tag :min, params[:min], class: 'form-control', placeholder: 'min-price' %>
+    <%= number_field_tag :max, params[:max], class: 'form-control', placeholder: 'Max-price' %>
+    <select name="order" class="btn btn-default btn-lg">
+      <%= options_for_select [['PRICE', 'price'], ['ID', 'id']], params[:order] %>
+    </select>
+    <%= check_box_tag :desc, value: true %>由大到小排列
+  </div>
+  <%= button_tag '搜尋', class: "btn btn-primary" %>
+<% end %>

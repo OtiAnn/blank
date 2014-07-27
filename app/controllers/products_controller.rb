@@ -1,28 +1,36 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy], except: [:update_all]
 
-  # GET /products
-  # GET /products.json
   def index
+    # if params[:min].nil? || params[:max].nil?
+    #   @products = Product.all
+    # else
+    #   min, max = params[:min].to_i, params[:max].to_i
+    #   @products = Product.where(price: min..max)
+    # end
     @products = Product.all
+    @products = @products.where('price >= ?', params[:min]) if params[:min].present?
+    @products = @products.where('price <= ?', params[:max]) if params[:max].present?
+    xsc = (params[:desc].present? ? :desc : :asc)
+    @products = @products.order(params[:order] => xsc) if params[:order].present?
+
+    per_page = 10
+    page = params[:p].to_i - 1
+    offset = page * per_page
+    @products = @products.limit(per_page).offset(offset)
+    @max_page = Product.count / per_page + 1
   end
 
-  # GET /products/1
-  # GET /products/1.json
   def show
   end
 
-  # GET /products/new
   def new
     @product = Product.new
   end
 
-  # GET /products/1/edit
   def edit
   end
 
-  # POST /products
-  # POST /products.json
   def create
     @product = Product.new(product_params)
 
@@ -37,8 +45,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /products/1
-  # PATCH/PUT /products/1.json
   def update
     respond_to do |format|
       if @product.update(product_params)
@@ -51,8 +57,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # DELETE /products/1
-  # DELETE /products/1.json
   def destroy
     @product.destroy
     respond_to do |format|
@@ -61,14 +65,16 @@ class ProductsController < ApplicationController
     end
   end
 
+  def update_all
+    @p = Product.find(params[:ids])
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :desc, :price, :category_id)
+      params.require(:product).permit(:name, :name_confirmation, :desc, :price, :category_id)
     end
 end
