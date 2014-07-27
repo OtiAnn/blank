@@ -1,0 +1,11 @@
+about
+<br>
+<br>
+<br>
+form_for test
+<% Product.all.each do |product| %>
+  <%= form_for product do |f| %>
+    <%= f.text_field :name %>
+    <%= f.submit %>
+  <% end %>
+<% end %>
