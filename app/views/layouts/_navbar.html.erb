@@ -1,0 +1,13 @@
+<nav class="navbar navbar-inverse" role="navigation">
+  <%= link_to 'Product', products_path, class: "navbar-brand" %>
+  <ul class="nav navbar-nav">
+      <li><%= link_to 'Index', products_path %></li>
+      <li><a href="#">Link</a></li>
+  </ul>
+  <%= form_tag products_path, method: 'get', class: 'navbar-form navbar-left', role: 'search' do %>
+    <div class="form-group">
+      <%= text_field_tag :q, nil, class: 'form-control', placeholder: 'I want to find...' %>
+    </div>
+    <%= button_tag 'Submit', class: 'btn btn-default' %>
+  <% end %>
+</nav>
