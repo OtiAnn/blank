@@ -6,7 +6,7 @@
     <%= f.input :name_confirmation %>
     <%= f.input :desc %>
     <%= f.input :price %>
-    <%= f.select :category_id, Category.all.collect {|x| [x.name, x.id]},{:include_blank => "選擇類別"},:class => "btn btn-default btn-lg" %>
+    <%= f.select :category_id, Category.all.collect { |x| x.name }, { include_blank: "選擇類別" }, :class => "btn btn-default btn-lg" %>
   </div>
   <br>
   <div class="form-actions">
