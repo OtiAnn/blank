@@ -9,4 +9,7 @@ module ApplicationHelper
       link_to page_number, products_path(p: page_number)
     end
   end
+  def price_range range, blank
+    number_field_tag range, params[range], class: 'form-control', placeholder: blank
+  end
 end

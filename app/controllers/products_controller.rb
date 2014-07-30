@@ -11,6 +11,7 @@ class ProductsController < ApplicationController
     @products = Product.all
     @products = @products.where('price >= ?', params[:min]) if params[:min].present?
     @products = @products.where('price <= ?', params[:max]) if params[:max].present?
+
     xsc = (params[:desc].present? ? :desc : :asc)
     @products = @products.order(params[:order] => xsc) if params[:order].present?
 
@@ -75,6 +76,10 @@ class ProductsController < ApplicationController
     end
 
     def product_params
-      params.require(:product).permit(:name, :name_confirmation, :desc, :price, :category_id)
+      params.require(:product).permit(:name,
+                                      :name_confirmation,
+                                      :desc,
+                                      :price,
+                                      :category_id)
     end
 end
